@@ -301,8 +301,8 @@ public class TreeServiceImpl<T extends BaseTreeObj<T, ID>, ID> implements TreeSe
     /**
      * 递归父元素
      *
-     * @param allList
-     * @param pid
+     * @param allList    全部元素
+     * @param pid        当前元素的id
      * @param parentList 传一个新的0长度的数组数组
      * @return 存放父元素的集合
      */
