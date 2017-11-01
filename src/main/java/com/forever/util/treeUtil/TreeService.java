@@ -36,6 +36,8 @@ public interface TreeService<T extends BaseTreeObj<T, ID>, ID> {
 
     List<T> getParentTreeList(List<T> allList, T ct);
 
+    List<T> getParentTreeList(List<T> allList, ID id);
+
     List<T> getParentTreeList(List<T> allList, T ct, ID rootId);
 
     List<T> recursionParentTree(List<T> allList, ID pid, List<T> parentList);

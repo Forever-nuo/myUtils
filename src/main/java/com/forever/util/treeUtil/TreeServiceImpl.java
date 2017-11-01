@@ -72,7 +72,6 @@ public class TreeServiceImpl<T extends BaseTreeObj<T, ID>, ID> implements TreeSe
         List<T> parentList = new ArrayList<>();
         //先获取当前元素的pid
         recursionParentTree(allList, ct, parentList);
-        parentList.add(ct);
         return parentList;
     }
 
@@ -216,10 +215,7 @@ public class TreeServiceImpl<T extends BaseTreeObj<T, ID>, ID> implements TreeSe
      */
     @Override
     public List<ID> getChildIdTreeList(List<T> allList, T pt) {
-        List<ID> idList = new ArrayList<ID>();
-        ID pid = pt.getId();
-        recursionIdTree(allList, pid, idList);
-        return idList;
+        return getChildIdTreeList(allList,pt.getId());
     }
 
 
@@ -264,6 +260,24 @@ public class TreeServiceImpl<T extends BaseTreeObj<T, ID>, ID> implements TreeSe
         List<T> parentTreeList = getParentList(allList, ct);
         parentTreeList.add(ct);
         return parentTreeList;
+    }
+
+    /**
+     * 根据id 获取父树节点 及其本身
+     *
+     * @param allList
+     * @param id
+     * @return
+     */
+    @Override
+    public List<T> getParentTreeList(List<T> allList, ID id) {
+        T ct =null;
+        for (T t : allList) {
+            if(t.getId().equals(id)){
+                ct = t;
+            }
+        }
+        return getParentTreeList(allList,ct);
     }
 
     /**
@@ -337,9 +351,10 @@ public class TreeServiceImpl<T extends BaseTreeObj<T, ID>, ID> implements TreeSe
     public void recursionIdTree(List<T> allList, ID pid, List<ID> idList) {
         for (T nextObj : allList) {
             ID nextPId = nextObj.getPId();
+            ID nextId = nextObj.getId();
             if (nextPId.equals(pid)) {
                 recursionIdTree(allList, nextPId, idList);
-                idList.add(nextPId);
+                idList.add(nextId);
             }
         }
 
